@@ -23,14 +23,14 @@ class BookOps:
         return self.__publication_date
     
     def is_available(self):
-        return self.__availability
+        return self.availability
 
     # setters
     def set_availability(self, availability):
-        self.__availability = availability
+        self.availability = availability
     
     def display_info(self):
-        status = "Available" if self.__availability else "Borrowed"
+        status = "Available" if self.availability else "Borrowed"
         print(f"Title: {self.__title}, Author: {self.__author}, Genre: {self.__genre}, Publication Date: {self.__publication_date}, Status: {status}")
 
 # main functions
@@ -43,20 +43,18 @@ def add_book():
     book_dict[title] = book 
     print(f"Book '{title}' added successfully!")
 
-def borrow_book(user): 
+def borrow_book(): 
     title = input("Enter the title of the book you wish to borrow: ") 
     if title in book_dict and book_dict[title].is_available(): 
-        book_dict[title].set_availability(False) 
-        user.borrow_book(title) 
+        book_dict[title].set_availability(False)
         print(f"Book '{title}' has been borrowed.")
     else: 
         print("This book is not available or does not exist in the database.")
 
-def return_book(user):
-    title = input("Enter the book you wish to return")
+def return_book():
+    title = input("Enter the book you wish to return: ")
     if title in book_dict and not book_dict[title].is_available():
         book_dict[title].set_availability(True)
-        user.return_book(title)
         print(f"This {title} has been returned to the library")
     else:
         print("This book was not borrowed or does not exist in the database")
